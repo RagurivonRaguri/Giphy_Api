@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { GiphyFetch } from '@giphy/js-fetch-api'
-
+import API_KEY from './config';
 
 function Search() {
   const [text, setText] = useState("");
   const [images, setImage] = useState([]);
 
-  const giphy = new GiphyFetch(process.env.REACT_APP_GIPHY_KEY);
+  const giphy = new GiphyFetch(API_KEY);
   const handleInput = (event) => {
     setText(event.target.value);
   };
@@ -14,7 +14,7 @@ function Search() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-        const response = await giphy.animate(text, { limit: 20 });
+        const response = await giphy.search(text, {limit: 10});
         console.log(response);
         setImage(response.data);
       } catch (error) {
